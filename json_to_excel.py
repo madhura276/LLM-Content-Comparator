@@ -7,16 +7,13 @@ from openpyxl.styles import PatternFill
 JSON_PATH = "output/comparison.json"
 EXCEL_PATH = "output/comparison.xlsx"
 
-# Load JSON
 with open(JSON_PATH, "r", encoding="utf-8") as f:
     data = json.load(f)
 
 rows = data["comparison"]
 
-# Create DataFrame
 df = pd.DataFrame(rows)
 
-# Convert TRUE/FALSE → Yes/No
 df = df.replace({True: "Yes", False: "No"})
 
 # Ensure output folder exists
@@ -25,10 +22,7 @@ os.makedirs("output", exist_ok=True)
 # Write Excel
 df.to_excel(EXCEL_PATH, index=False)
 
-# -------------------------------
 # CONDITIONAL FORMATTING
-# -------------------------------
-
 wb = load_workbook(EXCEL_PATH)
 ws = wb.active
 
@@ -45,4 +39,4 @@ for row in ws.iter_rows(min_row=2, min_col=2, max_col=ws.max_column):
 
 wb.save(EXCEL_PATH)
 
-print("✅ Excel created with green/red conditional formatting")
+print("Excel created with green/red conditional formatting")
