@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# -------------------- GROQ (CORE MODEL) --------------------
+# -------------------- GROQ --------------------
 
 def groq_llama(prompt):
     r = requests.post(
@@ -22,13 +22,13 @@ def groq_llama(prompt):
 
     data = r.json()
     if "choices" not in data:
-        print("⚠️ Groq skipped:", data)
+        print(" Groq skipped:", data)
         return ""
 
     return data["choices"][0]["message"]["content"]
 
 
-# -------------------- OPENROUTER (OPTIONAL BACKUP) --------------------
+# -------------------- OPENROUTER --------------------
 
 def openrouter_mistral(prompt):
     r = requests.post(
@@ -46,13 +46,11 @@ def openrouter_mistral(prompt):
 
     data = r.json()
     if "choices" not in data:
-        print("⚠️ OpenRouter skipped:", data)
+        print("OpenRouter skipped:", data)
         return ""
 
     return data["choices"][0]["message"]["content"]
 
-
-# -------------------- GENERATE CONTENT --------------------
 
 def generate_content(prompt):
     """
@@ -60,8 +58,6 @@ def generate_content(prompt):
     """
     return groq_llama(prompt)
 
-
-# -------------------- SUMMARIZE CONTENT --------------------
 
 def summarize_content(text):
     """
